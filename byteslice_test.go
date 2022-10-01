@@ -17,15 +17,6 @@ func ExampleByteSlice_String() {
 	// some string
 }
 
-func ExampleByteSlice_Equal() {
-	b := readonly.NewByteSlice("some string")
-	fmt.Println(b.Equal([]byte("some string")))
-	fmt.Println(b.Equal([]byte("some other string")))
-	// Output:
-	// true
-	// false
-}
-
 func TestByteSlice_ReadAt(t *testing.T) {
 	readAll := func(r readonly.ByteSlice) ([]byte, error) {
 		return io.ReadAll(io.NewSectionReader(r, 0, int64(r.Len())))

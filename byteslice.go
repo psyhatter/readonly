@@ -19,14 +19,8 @@ func NewByteSlice[T ~string | ~[]byte](src T) (b ByteSlice) {
 // ByteSlice wrapper over []byte that limits the interface to read-only.
 type ByteSlice struct{ Slice[byte] }
 
-// String string(b) equivalent for byte slice.
-func (b ByteSlice) String() string { return string(b.s) }
-
-// Equal s1 == s2 equivalent for string.
-func (b ByteSlice) Equal(bb []byte) bool {
-	// Neither cmd/compile nor gccgo allocates for these string conversions.
-	return string(b.s) == string(bb)
-}
+// String equivalent to string(b) for byte slice, but avoids allocation.
+func (b ByteSlice) String() string { return *(*string)(unsafe.Pointer(&b.s)) }
 
 // ReadAt implements io.ReaderAt.
 func (b ByteSlice) ReadAt(p []byte, off int64) (int, error) {

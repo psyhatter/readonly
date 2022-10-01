@@ -241,7 +241,7 @@ func TestReader_Reset(t *testing.T) {
 		t.Fatalf("unexpected err: %v", err)
 	}
 
-	if !third.Equal(b) {
+	if third.String() != string(b) {
 		t.Fatalf("expected %q, got %q", first, b)
 	}
 }

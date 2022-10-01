@@ -26,36 +26,7 @@ ByteSlice wrapper over []byte that limits the interface to read-only.
 NewByteSlice constructor for ByteSlice.
 Accepts a string or slice of bytes as input, avoiding allocations.
 
-#### func (ByteSlice) [Equal](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L26)
-
-`func (b ByteSlice) Equal(bb []byte) bool`
-
-Equal s1 == s2 equivalent for string.
-
-```golang
-package main
-
-import (
-	"fmt"
-	"github.com/psyhatter/readonly"
-)
-
-func main() {
-	b := readonly.NewByteSlice("some string")
-	fmt.Println(b.Equal([]byte("some string")))
-	fmt.Println(b.Equal([]byte("some other string")))
-}
-
-```
-
- Output:
-
-```
-true
-false
-```
-
-#### func (ByteSlice) [ReadAt](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L32)
+#### func (ByteSlice) [ReadAt](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L26)
 
 `func (b ByteSlice) ReadAt(p []byte, off int64) (int, error)`
 
@@ -65,7 +36,7 @@ ReadAt implements io.ReaderAt.
 
 `func (b ByteSlice) String() string`
 
-String string(b) equivalent for byte slice.
+String equivalent to string(b) for byte slice, but avoids allocation.
 
 ```golang
 package main
@@ -87,7 +58,7 @@ func main() {
 some string
 ```
 
-#### func (ByteSlice) [WriteTo](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L41)
+#### func (ByteSlice) [WriteTo](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L35)
 
 `func (b ByteSlice) WriteTo(w io.Writer) (n int64, err error)`
 
