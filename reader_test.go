@@ -37,30 +37,10 @@ func ExampleReader_ReadRune() {
 	// ф 2 <nil>
 }
 
-func ExampleReader_ResetString() {
+func ExampleResetReader() {
 	r := readonly.NewReader("abc")
 	fmt.Println(r.Len())
-	r.ResetString("a")
-	fmt.Println(r.Len())
-	// Output:
-	// 3
-	// 1
-}
-
-func ExampleReader_ResetBytes() {
-	r := readonly.NewReader("abc")
-	fmt.Println(r.Len())
-	r.ResetBytes([]byte("a"))
-	fmt.Println(r.Len())
-	// Output:
-	// 3
-	// 1
-}
-
-func ExampleReader_ResetByteSlice() {
-	r := readonly.NewReader("abc")
-	fmt.Println(r.Len())
-	r.ResetByteSlice(readonly.NewByteSlice("a"))
+	readonly.ResetReader(r, "a")
 	fmt.Println(r.Len())
 	// Output:
 	// 3
@@ -206,42 +186,5 @@ func TestReader_Read(t *testing.T) {
 		if _, err := r.Read(nil); !errors.Is(err, io.EOF) {
 			t.Fatalf("[%d] expected %q, got %q", i, io.ErrShortWrite, err)
 		}
-	}
-}
-
-func TestReader_Reset(t *testing.T) {
-	var r readonly.Reader
-
-	first := "123"
-	r.ResetString(first)
-	b, err := io.ReadAll(&r)
-	if err != nil {
-		t.Fatalf("unexpected err: %v", err)
-	}
-
-	if first != string(b) {
-		t.Fatalf("expected %q, got %q", first, b)
-	}
-
-	second := []byte("456")
-	r.ResetBytes(second)
-	b, err = io.ReadAll(&r)
-	if err != nil {
-		t.Fatalf("unexpected err: %v", err)
-	}
-
-	if !bytes.Equal(second, b) {
-		t.Fatalf("expected %q, got %q", first, b)
-	}
-
-	third := readonly.NewByteSlice("789")
-	r.ResetByteSlice(third)
-	b, err = io.ReadAll(&r)
-	if err != nil {
-		t.Fatalf("unexpected err: %v", err)
-	}
-
-	if third.String() != string(b) {
-		t.Fatalf("expected %q, got %q", first, b)
 	}
 }

@@ -78,11 +78,5 @@ func (r Reader) WriteTo(w io.Writer) (n int64, err error) {
 	return n, nil
 }
 
-// ResetString resets the Reader to be reading from s.
-func (r *Reader) ResetString(s string) { r.s = s }
-
-// ResetBytes resets the Reader to be reading from b.
-func (r *Reader) ResetBytes(b []byte) { r.s = *(*string)(unsafe.Pointer(&b)) }
-
-// ResetByteSlice resets the Reader to be reading from b.
-func (r *Reader) ResetByteSlice(b ByteSlice) { r.s = *(*string)(unsafe.Pointer(&b)) }
+// ResetReader resets the Reader to be reading from b.
+func ResetReader[T []byte | string | ByteSlice](r *Reader, b T) { r.s = *(*string)(unsafe.Pointer(&b)) }

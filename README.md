@@ -11,6 +11,38 @@ that they can be used for any types. Also, byte sequences
 through the interfaces of standard libraries (for example,
 io.Reader, io.WriterTo and others).
 
+## Functions
+
+### func [ResetReader](https://github.com/psyhatter/readonly/blob/main/reader.go#L82)
+
+`func ResetReader[T []byte | string | ByteSlice](r *Reader, b T)`
+
+ResetReader resets the Reader to be reading from b.
+
+```golang
+package main
+
+import (
+	"fmt"
+	"github.com/psyhatter/readonly"
+)
+
+func main() {
+	r := readonly.NewReader("abc")
+	fmt.Println(r.Len())
+	readonly.ResetReader(r, "a")
+	fmt.Println(r.Len())
+}
+
+```
+
+Output:
+
+```
+3
+1
+```
+
 ## Types
 
 ### type [ByteSlice](https://github.com/psyhatter/readonly/blob/main/byteslice.go#L20)
@@ -293,96 +325,6 @@ func main() {
 
 ```
 ф 2 <nil>
-```
-
-#### func (*Reader) [ResetByteSlice](https://github.com/psyhatter/readonly/blob/main/reader.go#L88)
-
-`func (r *Reader) ResetByteSlice(b ByteSlice)`
-
-ResetByteSlice resets the Reader to be reading from b.
-
-```golang
-package main
-
-import (
-	"fmt"
-	"github.com/psyhatter/readonly"
-)
-
-func main() {
-	r := readonly.NewReader("abc")
-	fmt.Println(r.Len())
-	r.ResetByteSlice(readonly.NewByteSlice("a"))
-	fmt.Println(r.Len())
-}
-
-```
-
- Output:
-
-```
-3
-1
-```
-
-#### func (*Reader) [ResetBytes](https://github.com/psyhatter/readonly/blob/main/reader.go#L85)
-
-`func (r *Reader) ResetBytes(b []byte)`
-
-ResetBytes resets the Reader to be reading from b.
-
-```golang
-package main
-
-import (
-	"fmt"
-	"github.com/psyhatter/readonly"
-)
-
-func main() {
-	r := readonly.NewReader("abc")
-	fmt.Println(r.Len())
-	r.ResetBytes([]byte("a"))
-	fmt.Println(r.Len())
-}
-
-```
-
- Output:
-
-```
-3
-1
-```
-
-#### func (*Reader) [ResetString](https://github.com/psyhatter/readonly/blob/main/reader.go#L82)
-
-`func (r *Reader) ResetString(s string)`
-
-ResetString resets the Reader to be reading from s.
-
-```golang
-package main
-
-import (
-	"fmt"
-	"github.com/psyhatter/readonly"
-)
-
-func main() {
-	r := readonly.NewReader("abc")
-	fmt.Println(r.Len())
-	r.ResetString("a")
-	fmt.Println(r.Len())
-}
-
-```
-
- Output:
-
-```
-3
-1
 ```
 
 #### func (Reader) [WriteTo](https://github.com/psyhatter/readonly/blob/main/reader.go#L62)
