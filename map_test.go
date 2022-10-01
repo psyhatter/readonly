@@ -7,6 +7,14 @@ import (
 	"github.com/psyhatter/readonly"
 )
 
+func ExampleMap_IsNil() {
+	m1, m2 := readonly.NewMap[string, int](nil), readonly.NewMap(map[string]int{})
+	fmt.Println(m1.IsNil(), m2.IsNil())
+
+	// Output:
+	// true false
+}
+
 func ExampleMap_Len() {
 	m := readonly.NewMap(map[string]int{"1": 1, "2": 2})
 	fmt.Println(m.Len())

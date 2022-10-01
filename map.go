@@ -7,6 +7,9 @@ func NewMap[k comparable, v any](m map[k]v) Map[k, v] { return Map[k, v]{m: m} }
 // to read-only.
 type Map[k comparable, v any] struct{ m map[k]v }
 
+// IsNil equivalent to s == nil.
+func (m Map[k, v]) IsNil() bool { return m.m == nil }
+
 // Len equivalent to len(m).
 func (m Map[k, v]) Len() int { return len(m.m) }
 

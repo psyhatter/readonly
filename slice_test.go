@@ -8,6 +8,14 @@ import (
 	"github.com/psyhatter/readonly"
 )
 
+func ExampleSlice_IsNil() {
+	s1, s2 := readonly.NewSlice[int](nil), readonly.NewSlice([]int{})
+	fmt.Println(s1.IsNil(), s2.IsNil())
+
+	// Output:
+	// true false
+}
+
 func ExampleSlice_Len() {
 	s := readonly.NewSlice([]int{1, 2})
 

@@ -167,31 +167,37 @@ to read-only.
 
 NewMap returns a map interface limited to read-only methods.
 
-#### func (Map[k, v]) [Get](https://github.com/psyhatter/readonly/blob/main/map.go#L14)
+#### func (Map[k, v]) [Get](https://github.com/psyhatter/readonly/blob/main/map.go#L17)
 
 `func (m Map[k, v]) Get(key k) v`
 
 Get equivalent to v := m[key].
 
-#### func (Map[k, v]) [Get2](https://github.com/psyhatter/readonly/blob/main/map.go#L20)
+#### func (Map[k, v]) [Get2](https://github.com/psyhatter/readonly/blob/main/map.go#L23)
 
 `func (m Map[k, v]) Get2(key k) (v, bool)`
 
 Get2 equivalent to v, ok := m[key].
 
-#### func (Map[k, v]) [Has](https://github.com/psyhatter/readonly/blob/main/map.go#L17)
+#### func (Map[k, v]) [Has](https://github.com/psyhatter/readonly/blob/main/map.go#L20)
 
 `func (m Map[k, v]) Has(key k) bool`
 
 Has equivalent to _, ok := m[key].
 
-#### func (Map[k, v]) [Len](https://github.com/psyhatter/readonly/blob/main/map.go#L11)
+#### func (Map[k, v]) [IsNil](https://github.com/psyhatter/readonly/blob/main/map.go#L11)
+
+`func (m Map[k, v]) IsNil() bool`
+
+IsNil equivalent to s == nil.
+
+#### func (Map[k, v]) [Len](https://github.com/psyhatter/readonly/blob/main/map.go#L14)
 
 `func (m Map[k, v]) Len() int`
 
 Len equivalent to len(m).
 
-#### func (Map[k, v]) [Range](https://github.com/psyhatter/readonly/blob/main/map.go#L25)
+#### func (Map[k, v]) [Range](https://github.com/psyhatter/readonly/blob/main/map.go#L28)
 
 `func (m Map[k, v]) Range(f func(key k, val v) (next bool))`
 
@@ -428,13 +434,13 @@ to read-only.
 
 NewSlice returns a slice interface limited to read-only methods.
 
-#### func (Slice[T]) [Append](https://github.com/psyhatter/readonly/blob/main/slice.go#L46)
+#### func (Slice[T]) [Append](https://github.com/psyhatter/readonly/blob/main/slice.go#L49)
 
 `func (s Slice[T]) Append(dst []T) []T`
 
 Append appends elements to the end of dst and returns the updated slice.
 
-#### func (Slice[T]) [AppendInto](https://github.com/psyhatter/readonly/blob/main/slice.go#L51)
+#### func (Slice[T]) [AppendInto](https://github.com/psyhatter/readonly/blob/main/slice.go#L54)
 
 `func (s Slice[T]) AppendInto(to *[]T)`
 
@@ -442,13 +448,13 @@ AppendInto adds elements to the end of the slice located at the dst
 pointer and places the new slice at the dst pointer.
 Does nothing if dst == nil.
 
-#### func (Slice[T]) [Cap](https://github.com/psyhatter/readonly/blob/main/slice.go#L15)
+#### func (Slice[T]) [Cap](https://github.com/psyhatter/readonly/blob/main/slice.go#L18)
 
 `func (s Slice[T]) Cap() int`
 
 Cap equivalent to cap(s).
 
-#### func (Slice[T]) [Copy](https://github.com/psyhatter/readonly/blob/main/slice.go#L38)
+#### func (Slice[T]) [Copy](https://github.com/psyhatter/readonly/blob/main/slice.go#L41)
 
 `func (s Slice[T]) Copy() []T`
 
@@ -456,7 +462,7 @@ Copy returns a new copy of the built-in slice.
 As fast as inline copy to new slice, but faster than copying to a new
 slice with (s Slice) CopyTo.
 
-#### func (Slice[T]) [CopyTo](https://github.com/psyhatter/readonly/blob/main/slice.go#L43)
+#### func (Slice[T]) [CopyTo](https://github.com/psyhatter/readonly/blob/main/slice.go#L46)
 
 `func (s Slice[T]) CopyTo(dst []T) int`
 
@@ -464,25 +470,31 @@ CopyTo copies elements from a source slice into a destination slice.
 The source and destination may overlap. Copy returns the number of
 elements copied, which will be the minimum of (Slice) Len() and len(dst).
 
-#### func (Slice[T]) [EndBefore](https://github.com/psyhatter/readonly/blob/main/slice.go#L61)
+#### func (Slice[T]) [EndBefore](https://github.com/psyhatter/readonly/blob/main/slice.go#L64)
 
 `func (s Slice[T]) EndBefore(i int) Slice[T]`
 
 EndBefore equivalent to s[:i].
 
-#### func (Slice[T]) [Get](https://github.com/psyhatter/readonly/blob/main/slice.go#L18)
+#### func (Slice[T]) [Get](https://github.com/psyhatter/readonly/blob/main/slice.go#L21)
 
 `func (s Slice[T]) Get(index int) (v T)`
 
 Get equivalent to v := s[index].
 
-#### func (Slice[T]) [Len](https://github.com/psyhatter/readonly/blob/main/slice.go#L12)
+#### func (Slice[T]) [IsNil](https://github.com/psyhatter/readonly/blob/main/slice.go#L12)
+
+`func (s Slice[T]) IsNil() bool`
+
+IsNil equivalent to s == nil.
+
+#### func (Slice[T]) [Len](https://github.com/psyhatter/readonly/blob/main/slice.go#L15)
 
 `func (s Slice[T]) Len() int`
 
 Len equivalent to len(s).
 
-#### func (Slice[T]) [Range](https://github.com/psyhatter/readonly/blob/main/slice.go#L25)
+#### func (Slice[T]) [Range](https://github.com/psyhatter/readonly/blob/main/slice.go#L28)
 
 `func (s Slice[T]) Range(f func(index int, val T) (next bool))`
 
@@ -492,19 +504,19 @@ Breaks the loop if next == false.
 An order of magnitude slower than the built-in slice loop, for
 optimizations, you can use slice index access (see benchmarks).
 
-#### func (Slice[T]) [Slice](https://github.com/psyhatter/readonly/blob/main/slice.go#L64)
+#### func (Slice[T]) [Slice](https://github.com/psyhatter/readonly/blob/main/slice.go#L67)
 
 `func (s Slice[T]) Slice(start, end int) Slice[T]`
 
 Slice equivalent to s[start:end].
 
-#### func (Slice[T]) [Slice3](https://github.com/psyhatter/readonly/blob/main/slice.go#L67)
+#### func (Slice[T]) [Slice3](https://github.com/psyhatter/readonly/blob/main/slice.go#L70)
 
 `func (s Slice[T]) Slice3(i, j, k int) Slice[T]`
 
 Slice3 equivalent to s[i:j:k].
 
-#### func (Slice[T]) [StartAfter](https://github.com/psyhatter/readonly/blob/main/slice.go#L58)
+#### func (Slice[T]) [StartAfter](https://github.com/psyhatter/readonly/blob/main/slice.go#L61)
 
 `func (s Slice[T]) StartAfter(i int) Slice[T]`
 

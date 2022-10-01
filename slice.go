@@ -8,6 +8,9 @@ func NewSlice[T any](s []T) Slice[T] { return Slice[T]{s: s} }
 // to read-only.
 type Slice[T any] struct{ s []T }
 
+// IsNil equivalent to s == nil.
+func (s Slice[T]) IsNil() bool { return s.s == nil }
+
 // Len equivalent to len(s).
 func (s Slice[T]) Len() int { return len(s.s) }
 
